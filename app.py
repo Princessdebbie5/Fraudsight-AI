@@ -31,7 +31,7 @@ if uploaded_file is not None:
         df[col] = pd.factorize(df[col])[0]
 
     # Load model
-    model = joblib.load("fraud_model.pkl")
+    model = joblib.load("fraud_model_v2.pkl")
 
     # Prepare for prediction
     X = df.drop(columns=["is_fraud"], errors="ignore")
@@ -58,7 +58,7 @@ if uploaded_file is not None:
     df["flag_reason"] = df.apply(lambda row: reason_generator(row) if row["fraud_prediction"] == 1 else "", axis=1)
 
     # --- Summary Metrics ---
-    st.markdown("### 📊 Fraud Detection Summary")
+    st.markdown("Fraud Detection Summary")
     total = len(df)
     frauds = df["fraud_prediction"].sum()
     percent = (frauds / total) * 100
